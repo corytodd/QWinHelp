@@ -92,7 +92,7 @@ LCIDRecord::LCIDRecord(QFile &file, qint64 off)
             primaryLanguageID);
         quint8 subLanguageID = (((lcidRawH & 0xFC) >> 2) & 0x3F);
         PRINT_DBG("        LCID record sub language id: %d", subLanguageID);
-        this->lcid = LCID(primaryLanguageID, subLanguageID, 0, 0);
+        this->lcid = LCIDex(primaryLanguageID, subLanguageID, 0, 0);
     }
     else
     {
@@ -120,7 +120,7 @@ LCIDRecord::LCIDRecord(QFile &file, qint64 off)
         quint8 sortVersion = (((lcidRaw2 & 0xF0) >> 4) & 0x0F);
         PRINT_DBG("        LCID record sort version: %d", sortVersion);
         this->lcid
-            = LCID(primaryLanguageID, subLanguageID, sortID, sortVersion);
+            = LCIDex(primaryLanguageID, subLanguageID, sortID, sortVersion);
     }
     PRINT_DBG("LCID record loaded successfully");
 }
@@ -157,7 +157,7 @@ LCIDRecord & LCIDRecord::operator=(const LCIDRecord & rhs)
     return *this;
 }
 
-LCID LCIDRecord::getLCID() const
+LCIDex LCIDRecord::getLCID() const
 {
     return lcid;
 }
